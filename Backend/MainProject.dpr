@@ -1,7 +1,8 @@
 program MainProject;
 
 uses
-  Vcl.Forms;
+  Vcl.Forms,
+  BackendUnit in 'BackendUnit.pas';
 
 {$R *.res}
 
