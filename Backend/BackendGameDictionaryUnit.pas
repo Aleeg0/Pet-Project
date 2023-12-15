@@ -6,10 +6,10 @@ Uses System.Generics.Collections;
 
 Type
     TPoints = Integer;
-
+    TGameDic = TDictionary<String, TPoints>; 
     TGameDictionary = Class
     Private
-        GameDic: TDictionary<String, TPoints>;
+        GameDic: TGameDic;
         SourceFileName: String;
         SourceFile: TextFile;
     Public

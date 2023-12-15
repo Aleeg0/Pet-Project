@@ -6,42 +6,55 @@ Uses System.Generics.Collections; // add dictionary
 
 Type
     TLetters = TDictionary<Char, Integer>;
-
     TGamer = Class
     Private
         Status50For50Button: Boolean;
         StatusFriendsHelpButton: Boolean;
         UserLetters: TLetters;
         LastWord: String;
+
     Public
+        Procedure SetLastGamersWord(LastGamersWord: String);
+        Procedure Take10LettersFromBank();
+        Procedure ChangeLetter(chosenLetter, newLetter :Char);
         // 0 - не было использована
         // 1 - была использована
         Function WasFrindsHelpButtonStatus(): Boolean;
         Function Was50For50ButtonStatus(): Boolean;
         Function GetLastWord(): String;
-        Procedure SetLastGamersWord(LastGamersWord: String);
-        Procedure Take10LettersFromBank();
+        Function GetUserLetters() : TLetters;
+        // проверяет можно ли составить последнее переданное слов из букв,
+        // которые были в БАНКЕ БУКВ пользователя
         Function IsWordCreatable(): Boolean;
     End;
-
-    TLetterBank = Class
-    Private
-
-    End;
-
-    TEmpty = Record
-    End;
-
-
 
 Implementation
 
 { TGamer }
 
+procedure TGamer.ChangeLetter(chosenLetter, newLetter: Char);
+begin
+    // удаление буквы которую пользователь убрал
+    if UserLetters[chosenLetter] = 1 then
+        UserLetters.Remove(chosenLetter)
+    else
+       UserLetters[chosenLetter] := UserLetters[chosenLetter] - 1;
+    // добавление новой
+    if UserLetters.ContainsKey(newLetter) then
+        UserLetters[newLetter] := UserLetters[newLetter] + 1
+    else
+        UserLetters.Add(newLetter,1);
+end;
+
 Function TGamer.GetLastWord(): String;
 Begin
     GetLastWord := LastWord;
 End;
+
+function TGamer.GetUserLetters: TLetters;
+begin
+    GetUserLetters := UserLetters;
+end;
 
 Function TGamer.IsWordCreatable(): Boolean;
 Var
