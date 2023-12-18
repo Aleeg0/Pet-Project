@@ -2,7 +2,9 @@ program MainProject;
 
 uses
   Vcl.Forms,
-  BackendUnit in 'BackendUnit.pas';
+  BackendGamerUnit in 'BackendGamerUnit.pas',
+  BackendGameDictionaryUnit in 'BackendGameDictionaryUnit.pas',
+  BackendLetterBankUnit in 'BackendLetterBankUnit.pas';
 
 {$R *.res}
 

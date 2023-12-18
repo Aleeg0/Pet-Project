@@ -14,7 +14,7 @@ Type
         SourceFile: TextFile;
     Public
         Constructor Create(SourceFileName: String);
-        Procedure LoadFromFile();
+        Procedure LoadDictionaryFromFile();
         Procedure AddNewWord(NewWord : String);
         Function isExist(UserWord: String) : Boolean;
         // use Destroy() by default
@@ -49,7 +49,7 @@ begin
         IsExist := False;
 end;
 
-Procedure TGameDictionary.LoadFromFile;
+Procedure TGameDictionary.LoadDictionaryFromFile();
 Var
     Word : String;
 Begin
