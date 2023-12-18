@@ -32,7 +32,8 @@ Var
     RandomLetter: Char;
     I: Integer;
 Begin
-    Letters := TDictionary<Char, Integer>.Create;
+    Letters := Nil;
+    Letters := TDictionary<Char, Integer>.Create();
     For I := 1 To CountLetters Do
     Begin
         RandomLetter := #0;

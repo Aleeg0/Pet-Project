@@ -109,7 +109,7 @@ Begin
     For I := 1 To CountPlayers Do
     Begin
         Gamers[I - 1] := TGamer.Create();
-        Gamers[I - 1].SetLetters(LettersBank.GiveLetters(10));
+         Gamers[I - 1].SetLetters(LettersBank.GiveLetters(10));
     End;
     // первый пошел
     CurPlayer := 1;
@@ -127,7 +127,7 @@ End;
 
 Procedure TGameForm.NextPlayerClick(Sender: TObject);
 Var
-    I, CountLetters: Integer;
+    I,CountLetters: Integer;
     TempLetters: TLetters;
     Letter: Char;
     CountMissing : Integer;
@@ -142,7 +142,7 @@ Begin
     CountMissing := 10 - Gamers[CurPlayer - 1].GetCountLetters();
     if CountMissing > 0 then
     Begin
-        Gamers[I - 1].SetLetters(LettersBank.GiveLetters(CountMissing));
+        Gamers[CurPlayer - 1].SetLetters(LettersBank.GiveLetters(CountMissing));
     End;
     TempLetters := Gamers[CurPlayer - 1].GetUserLetters();
     LettersLabel.Caption := '';
