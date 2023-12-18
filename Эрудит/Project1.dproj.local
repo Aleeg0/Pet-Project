@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.267,C:\БГУИР\ОПИ\Эрудит\Unit2.pas=C:\Users\Pavel\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.601,C:\БГУИР\ОПИ\Эрудит\Unit1.dfm=C:\Users\Pavel\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.002,C:\БГУИР\ОПИ\Эрудит\Project1.dproj=C:\Users\Pavel\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.601,C:\БГУИР\ОПИ\Эрудит\Unit1.pas=C:\Users\Pavel\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.267,C:\БГУИР\ОПИ\Эрудит\Unit2.dfm=C:\Users\Pavel\Documents\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
     <Transaction>1899.12.30 00:00:00.000.965,=C:\Users\Pavel\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.563,=C:\БГУИР\ОПИ\Эрудит\Unit3.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.267,C:\Users\Pavel\Documents\Embarcadero\Studio\Projects\Unit2.dfm=C:\БГУИР\ОПИ\Эрудит\Unit2.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.601,C:\Users\Pavel\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\БГУИР\ОПИ\Эрудит\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.267,C:\Users\Pavel\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\БГУИР\ОПИ\Эрудит\Unit2.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.668,=C:\Users\Pavel\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>2023.12.14 19:13:06.563,=C:\БГУИР\ОПИ\Эрудит\Unit3.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.002,C:\Users\Pavel\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\БГУИР\ОПИ\Эрудит\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.601,C:\Users\Pavel\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\БГУИР\ОПИ\Эрудит\Unit1.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="Unit1.pas"/>
