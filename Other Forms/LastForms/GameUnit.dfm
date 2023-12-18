@@ -6,7 +6,7 @@ object GameForm: TGameForm
   BorderStyle = bsSingle
   Caption = #1069#1088#1091#1076#1080#1090
   ClientHeight = 243
-  ClientWidth = 461
+  ClientWidth = 528
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -69,8 +69,8 @@ object GameForm: TGameForm
     ParentFont = False
   end
   object Label5: TLabel
-    Left = 301
-    Top = 82
+    Left = 373
+    Top = 87
     Width = 97
     Height = 20
     Caption = #1042#1072#1096#1080' '#1073#1086#1085#1091#1089#1099':'
@@ -78,9 +78,23 @@ object GameForm: TGameForm
   object Label3: TLabel
     Left = 8
     Top = 170
-    Width = 233
+    Width = 297
     Height = 20
     AutoSize = False
+  end
+  object Label6: TLabel
+    Left = 445
+    Top = 13
+    Width = 80
+    Height = 23
+    AutoSize = False
+    Caption = #1056#1072#1091#1085#1076' 1'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
   end
   object WordEdit: TEdit
     Left = 112
@@ -106,13 +120,14 @@ object GameForm: TGameForm
     Width = 233
     Height = 25
     Caption = #1055#1086#1076#1090#1074#1077#1088#1076#1090#1100' '#1074#1099#1073#1086#1088
+    Enabled = False
     NumGlyphs = 2
     TabOrder = 1
     OnClick = BitBtn1Click
   end
   object BitBtn2: TBitBtn
-    Left = 301
-    Top = 108
+    Left = 373
+    Top = 113
     Width = 137
     Height = 25
     Caption = #1055#1086#1084#1086#1097#1100' '#1076#1088#1091#1075#1072
@@ -122,8 +137,8 @@ object GameForm: TGameForm
     OnClick = BitBtn2Click
   end
   object BitBtn3: TBitBtn
-    Left = 301
-    Top = 139
+    Left = 373
+    Top = 144
     Width = 137
     Height = 25
     Caption = #1055#1086#1084#1086#1097#1100' '#1076#1088#1091#1075#1072
@@ -138,6 +153,7 @@ object GameForm: TGameForm
     Width = 233
     Height = 25
     Caption = #1057#1083#1077#1076#1091#1102#1097#1080#1081' '#1080#1075#1088#1086#1082
+    Enabled = False
     TabOrder = 4
     OnClick = NextPlayerClick
   end

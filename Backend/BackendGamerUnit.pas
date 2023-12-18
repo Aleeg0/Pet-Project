@@ -19,18 +19,18 @@ Type
         Procedure SetLastGamersWord(LastGamersWord: String);
         Procedure SetLetters(Letters: TLetters);
         Procedure ChangeLetter(ChosenLetter, NewLetter: Char);
+        Procedure AddPoints();
         // 0 - не было использована
         // 1 - была использована
         Function WasFrindsHelpButtonStatus(): Boolean;
         Function Was50For50ButtonStatus(): Boolean;
         Function GetCountLetters(): Integer;
         Function GetLastWord(): String;
+        Function GetPoints() : Integer;
         Function GetUserLetters(): TLetters;
         // проверяет можно ли составить последнее переданное слов из букв,
         // которые были в БАНКЕ БУКВ пользователя
         Function IsWordCreatable(): Boolean;
-
-        Procedure AddPoints();
     End;
 
 Implementation
@@ -60,6 +60,7 @@ Constructor TGamer.Create;
 Begin
     UserLetters := TDictionary<Char, Integer>.Create();
     LastWord := '';
+    GamerPoints := 0;
 End;
 
 Function TGamer.GetCountLetters: Integer;
@@ -77,6 +78,11 @@ Function TGamer.GetLastWord(): String;
 Begin
     GetLastWord := LastWord;
 End;
+
+function TGamer.GetPoints: Integer;
+begin
+    GetPoints := GamerPoints;
+end;
 
 Function TGamer.GetUserLetters: TLetters;
 Begin

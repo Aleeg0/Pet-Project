@@ -42,7 +42,7 @@ Begin
             Repeat
                 Randomize;
                 RandomLetter := Chr(Random(Alphabet.Count) + Ord('a'));
-            Until Alphabet[RandomLetter] > 0;
+            Until (Alphabet.ContainsKey(RandomLetter) And (Alphabet[RandomLetter] > 0));
             Alphabet[RandomLetter] := Alphabet[RandomLetter] - 1;
             If Alphabet[RandomLetter] = 0 Then
                 Alphabet.Remove(RandomLetter);

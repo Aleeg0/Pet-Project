@@ -16,8 +16,8 @@ object InstructionForm: TInstructionForm
   object InstructionLabel: TLabel
     Left = 80
     Top = 80
-    Width = 165
+    Width = 97
     Height = 23
-    Caption = #1053#1072#1093#1091#1081' '#1086#1085#1086' '#1090#1077#1073#1077' '#1085#1072#1076#1086
+    Caption = #1057#1082#1086#1088#1086' '#1073#1091#1076#1077#1090
   end
 end
