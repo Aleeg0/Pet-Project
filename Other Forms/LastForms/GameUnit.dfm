@@ -5,8 +5,8 @@ object GameForm: TGameForm
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = #1069#1088#1091#1076#1080#1090
-  ClientHeight = 133
-  ClientWidth = 417
+  ClientHeight = 243
+  ClientWidth = 461
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,6 +14,7 @@ object GameForm: TGameForm
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
+  OnCreate = FormCreate
   TextHeight = 20
   object Label1: TLabel
     Left = 8
@@ -30,7 +31,7 @@ object GameForm: TGameForm
   end
   object Label2: TLabel
     Left = 8
-    Top = 40
+    Top = 45
     Width = 115
     Height = 20
     Caption = #1042#1072#1096' '#1085#1072#1073#1086#1088' '#1073#1091#1082#1074':'
@@ -41,9 +42,9 @@ object GameForm: TGameForm
     Font.Style = []
     ParentFont = False
   end
-  object Label3: TLabel
-    Left = 129
-    Top = 40
+  object LettersLabel: TLabel
+    Left = 142
+    Top = 45
     Width = 99
     Height = 20
     Caption = 'QWERTYUIOPA'
@@ -56,7 +57,7 @@ object GameForm: TGameForm
   end
   object Label4: TLabel
     Left = 8
-    Top = 66
+    Top = 87
     Width = 85
     Height = 20
     Caption = #1042#1072#1096#1077' '#1089#1083#1086#1074#1086':'
@@ -68,16 +69,23 @@ object GameForm: TGameForm
     ParentFont = False
   end
   object Label5: TLabel
-    Left = 272
-    Top = 40
+    Left = 301
+    Top = 82
     Width = 97
     Height = 20
     Caption = #1042#1072#1096#1080' '#1073#1086#1085#1091#1089#1099':'
   end
-  object Edit1: TEdit
-    Left = 129
-    Top = 63
-    Width = 99
+  object Label3: TLabel
+    Left = 8
+    Top = 170
+    Width = 233
+    Height = 20
+    AutoSize = False
+  end
+  object WordEdit: TEdit
+    Left = 112
+    Top = 87
+    Width = 129
     Height = 28
     Hint = #1057#1086#1089#1090#1072#1074#1090#1077' '#1089#1083#1086#1074#1086' '#1080#1079' '#1073#1091#1082#1074
     Font.Charset = DEFAULT_CHARSET
@@ -90,20 +98,21 @@ object GameForm: TGameForm
     ShowHint = True
     TabOrder = 0
     TextHint = #1042#1072#1096#1077' '#1089#1083#1086#1074#1086
+    OnChange = WordEditChange
   end
   object BitBtn1: TBitBtn
     Left = 8
-    Top = 97
-    Width = 220
+    Top = 132
+    Width = 233
     Height = 25
     Caption = #1055#1086#1076#1090#1074#1077#1088#1076#1090#1100' '#1074#1099#1073#1086#1088
-    Kind = bkAll
     NumGlyphs = 2
     TabOrder = 1
+    OnClick = BitBtn1Click
   end
   object BitBtn2: TBitBtn
-    Left = 272
-    Top = 66
+    Left = 301
+    Top = 108
     Width = 137
     Height = 25
     Caption = #1055#1086#1084#1086#1097#1100' '#1076#1088#1091#1075#1072
@@ -113,8 +122,8 @@ object GameForm: TGameForm
     OnClick = BitBtn2Click
   end
   object BitBtn3: TBitBtn
-    Left = 272
-    Top = 97
+    Left = 301
+    Top = 139
     Width = 137
     Height = 25
     Caption = #1055#1086#1084#1086#1097#1100' '#1076#1088#1091#1075#1072
@@ -122,5 +131,14 @@ object GameForm: TGameForm
     NumGlyphs = 2
     TabOrder = 3
     OnClick = BitBtn3Click
+  end
+  object NextPlayer: TButton
+    Left = 8
+    Top = 210
+    Width = 233
+    Height = 25
+    Caption = #1057#1083#1077#1076#1091#1102#1097#1080#1081' '#1080#1075#1088#1086#1082
+    TabOrder = 4
+    OnClick = NextPlayerClick
   end
 end

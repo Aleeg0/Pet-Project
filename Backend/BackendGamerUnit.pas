@@ -2,66 +2,94 @@ Unit BackendGamerUnit;
 
 Interface
 
-Uses System.Generics.Collections; // add dictionary
+Uses System.Generics.Collections;
 
 Type
     TLetters = TDictionary<Char, Integer>;
+
     TGamer = Class
     Private
         Status50For50Button: Boolean;
         StatusFriendsHelpButton: Boolean;
         UserLetters: TLetters;
         LastWord: String;
-
+        GamerPoints: Integer;
     Public
+        Constructor Create();
         Procedure SetLastGamersWord(LastGamersWord: String);
-        Procedure Take10LettersFromBank();
-        Procedure ChangeLetter(chosenLetter, newLetter :Char);
+        Procedure SetLetters(Letters: TLetters);
+        Procedure ChangeLetter(ChosenLetter, NewLetter: Char);
         // 0 - не было использована
         // 1 - была использована
         Function WasFrindsHelpButtonStatus(): Boolean;
         Function Was50For50ButtonStatus(): Boolean;
+        Function GetCountLetters(): Integer;
         Function GetLastWord(): String;
-        Function GetUserLetters() : TLetters;
+        Function GetUserLetters(): TLetters;
         // проверяет можно ли составить последнее переданное слов из букв,
         // которые были в БАНКЕ БУКВ пользователя
         Function IsWordCreatable(): Boolean;
+
+        Procedure AddPoints();
     End;
 
 Implementation
 
 { TGamer }
 
-procedure TGamer.ChangeLetter(chosenLetter, newLetter: Char);
-begin
+Procedure TGamer.AddPoints();
+Begin
+    Inc(GamerPoints, Length(LastWord));
+End;
+
+Procedure TGamer.ChangeLetter(ChosenLetter, NewLetter: Char);
+Begin
     // удаление буквы которую пользователь убрал
-    if UserLetters[chosenLetter] = 1 then
-        UserLetters.Remove(chosenLetter)
-    else
-       UserLetters[chosenLetter] := UserLetters[chosenLetter] - 1;
+    If UserLetters[ChosenLetter] = 1 Then
+        UserLetters.Remove(ChosenLetter)
+    Else
+        UserLetters[ChosenLetter] := UserLetters[ChosenLetter] - 1;
     // добавление новой
-    if UserLetters.ContainsKey(newLetter) then
-        UserLetters[newLetter] := UserLetters[newLetter] + 1
-    else
-        UserLetters.Add(newLetter,1);
-end;
+    If UserLetters.ContainsKey(NewLetter) Then
+        UserLetters[NewLetter] := UserLetters[NewLetter] + 1
+    Else
+        UserLetters.Add(NewLetter, 1);
+End;
+
+Constructor TGamer.Create;
+Begin
+    UserLetters := TDictionary<Char, Integer>.Create();
+    LastWord := '';
+End;
+
+Function TGamer.GetCountLetters: Integer;
+Var
+    Count: Integer;
+    I: Integer;
+Begin
+    Count := 0;
+    For I In UserLetters.Values Do
+        Inc(Count, I);
+    GetCountLetters := Count;
+End;
 
 Function TGamer.GetLastWord(): String;
 Begin
     GetLastWord := LastWord;
 End;
 
-function TGamer.GetUserLetters: TLetters;
-begin
+Function TGamer.GetUserLetters: TLetters;
+Begin
     GetUserLetters := UserLetters;
-end;
+End;
 
 Function TGamer.IsWordCreatable(): Boolean;
 Var
     Counter, Size, I, J: Integer;
     TempLetter: Char;
+    Answer, WrongLetter: Boolean;
 Begin
-    IsWordCreatable := True;
+    Answer := True;
     Size := Length(LastWord);
     // считаем сколько раз буква встретилась в слове.
     // А потом смотри, если число появилось больше раз
@@ -69,21 +97,23 @@ Begin
     //
     For I := 1 To Size Do
     Begin
+        WrongLetter := True;
         Counter := 0;
         TempLetter := LastWord[I];
         If UserLetters.ContainsKey(TempLetter) Then
         Begin
-            For J := 1 To Size Do
-                If (TempLetter = LastWord[J]) Then
-                    Inc(Counter);
-            If UserLetters[TempLetter] < Counter Then
-                IsWordCreatable := False;
+            UserLetters[TempLetter] := UserLetters[TempLetter] - 1;
+            If UserLetters[TempLetter] = 0 Then
+                UserLetters.Remove(TempLetter);
         End
         Else
-            IsWordCreatable := False;
-        If Not IsWordCreatable Then
-            Break;
+            WrongLetter := False;
+        If Answer And Not WrongLetter Then
+            Answer := False;
+        If Not WrongLetter Then
+            Dec(GamerPoints);
     End;
+    IsWordCreatable := Answer;
 End;
 
 Procedure TGamer.SetLastGamersWord(LastGamersWord: String);
@@ -91,9 +121,16 @@ Begin
     LastWord := LastGamersWord;
 End;
 
-Procedure TGamer.Take10LettersFromBank();
+Procedure TGamer.SetLetters(Letters: TLetters);
+Var
+    Letter: Char;
 Begin
-    // TODO:
+    For Letter In Letters.Keys Do
+    Begin
+        if Not UserLetters.ContainsKey(Letter) then
+            UserLetters.Add(Letter, 0);
+        UserLetters[Letter] := Letters[Letter];
+    End;
 End;
 
 Function TGamer.Was50For50ButtonStatus(): Boolean;

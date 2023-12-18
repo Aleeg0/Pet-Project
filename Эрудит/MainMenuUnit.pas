@@ -4,8 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Menus, AboutTheDevelopersUnit, InstructionUnit,
-  GameUnit;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Menus, AboutTheDevelopersUnit, InstructionUnit, GameUnit;
 
 type
   TStartForm = class(TForm)
@@ -22,9 +21,8 @@ type
     procedure DeveloperTabOnClick(Sender: TObject);
     procedure PlayButtonClick(Sender: TObject);
   private
-    { Private declarations }
   public
-    { Public declarations }
+      Function GetCoutPlayers() : Integer;
   end;
 
 var
@@ -34,6 +32,11 @@ implementation
 
 {$R *.dfm}
 
+
+function TStartForm.GetCoutPlayers(): Integer;
+begin
+    GetCoutPlayers := StrToInt(PlayersComboBox.Items[PlayersComboBox.ItemIndex]);
+end;
 
 procedure TStartForm.InstructionTabOnClick(Sender: TObject);
 Var

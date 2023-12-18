@@ -30,19 +30,25 @@ Function TLetterBank.GiveLetters(CountLetters: Integer): TLetters;
 Var
     Letters: TLetters;
     RandomLetter: Char;
-    I, J: Integer;
+    I: Integer;
 Begin
-    For J := 1 To CountLetters Do
+    Letters := TDictionary<Char, Integer>.Create;
+    For I := 1 To CountLetters Do
     Begin
         RandomLetter := #0;
-        Repeat
-            Randomize;
-            RandomLetter := Chr(Random(Alphabet.Count + Ord('a')));
-        Until Alphabet[RandomLetter] > 0;
-        Alphabet[RandomLetter] := Alphabet[RandomLetter] - 1;
-        If Not Letters.ContainsKey(RandomLetter) Then
-            Letters.Add(RandomLetter, 0);
-        Letters[RandomLetter] := Letters[RandomLetter] + 1;
+        If Alphabet.Count > 0 Then
+        Begin
+            Repeat
+                Randomize;
+                RandomLetter := Chr(Random(Alphabet.Count) + Ord('a'));
+            Until Alphabet[RandomLetter] > 0;
+            Alphabet[RandomLetter] := Alphabet[RandomLetter] - 1;
+            If Alphabet[RandomLetter] = 0 Then
+                Alphabet.Remove(RandomLetter);
+            If Not Letters.ContainsKey(RandomLetter) Then
+                Letters.Add(RandomLetter, 0);
+            Letters[RandomLetter] := Letters[RandomLetter] + 1;
+        End;
     End;
     GiveLetters := Letters;
 End;
@@ -57,7 +63,8 @@ Begin
 
     Try
         Reset(SourceFile);
-        Read(SourceFile, CountOfLetters);
+        Readln(SourceFile, CountOfLetters);
+        Alphabet := TDictionary<Char, Integer>.Create();
         For I := 1 To CountOfLetters Do
         Begin
             Read(SourceFile, Letter);
