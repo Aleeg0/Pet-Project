@@ -6,10 +6,10 @@ Uses System.Generics.Collections;
 
 Type
     TPoints = Integer;
-    TGameDic = TDictionary<String, TPoints>; 
+    TWordDic = TDictionary<String, TPoints>;
     TGameDictionary = Class
     Private
-        GameDic: TGameDic;
+        GameDic: TWordDic;
         SourceFileName: String;
         SourceFile: TextFile;
     Public
@@ -18,6 +18,7 @@ Type
         Procedure AddNewWord(NewWord : String);
         Function isExist(UserWord: String) : Boolean;
         // use Destroy() by default
+        function lox();
     End;
 
 Implementation
@@ -27,12 +28,12 @@ Implementation
 procedure TGameDictionary.AddNewWord(NewWord: String);
 begin
     Append(SourceFile);
+    GameDic.Add(NewWord,Length(NewWord));
     try
         Writeln(SourceFile,NewWord);            
     finally
         CloseFile(SourceFile);
     end;
-
 end;
 
 Constructor TGameDictionary.Create(SourceFileName: String);
@@ -52,9 +53,12 @@ end;
 Procedure TGameDictionary.LoadDictionaryFromFile();
 Var
     Word : String;
+    Count : Integer;
 Begin
     Try
         ReSet(SourceFile);
+        Readln(SourceFile, Count);
+        GameDic := TDictionary<String,Integer>.Create();
         While Not EOF(SourceFile) Do
         Begin
             Readln(SourceFile, Word);
