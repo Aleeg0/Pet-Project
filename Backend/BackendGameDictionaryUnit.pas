@@ -19,6 +19,7 @@ Type
         Function isExist(UserWord: String) : Boolean;
         // use Destroy() by default
         function lox();
+        function asd();
     End;
 
 Implementation
