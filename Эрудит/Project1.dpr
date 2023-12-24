@@ -11,14 +11,17 @@ uses
   GameUnit in '..\Other Forms\LastForms\GameUnit.pas' {GameForm},
   FriendsHelpUnit in '..\Other Forms\LastForms\FriendsHelpUnit.pas' {FriendsHelpForm},
   fiftyForFiftyUnit in '..\Other Forms\LastForms\fiftyForFiftyUnit.pas' {FiftyForFiftyForm},
-  BackendStartUnit in '..\Backend\BackendStartUnit.pas';
+  BackendStartUnit in '..\Backend\BackendStartUnit.pas',
+  Vcl.Themes,
+  Vcl.Styles;
 
 {$R *.res}
 
 Begin
     Application.Initialize;
     Application.MainFormOnTaskbar := True;
-    Application.CreateForm(TStartForm, StartForm);
+    TStyleManager.TrySetStyle('Tablet Dark');
+  Application.CreateForm(TStartForm, StartForm);
   Application.CreateForm(TInstructionForm, InstructionForm);
   Application.CreateForm(TDeveloperForm, DeveloperForm);
   Application.CreateForm(TFriendsHelpForm, FriendsHelpForm);

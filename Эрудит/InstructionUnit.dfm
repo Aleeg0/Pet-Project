@@ -2,9 +2,10 @@ object InstructionForm: TInstructionForm
   Left = 0
   Top = 0
   BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = #1048#1085#1089#1090#1088#1091#1082#1094#1080#1103
-  ClientHeight = 191
-  ClientWidth = 334
+  ClientHeight = 327
+  ClientWidth = 583
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,12 +13,26 @@ object InstructionForm: TInstructionForm
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
+  OnCreate = InstructionFormOnCreate
   TextHeight = 23
-  object InstructionLabel: TLabel
-    Left = 80
-    Top = 80
-    Width = 97
-    Height = 23
-    Caption = #1057#1082#1086#1088#1086' '#1073#1091#1076#1077#1090
+  object InstructionScrollBox: TScrollBox
+    Left = 1
+    Top = -7
+    Width = 584
+    Height = 337
+    VertScrollBar.Tracking = True
+    TabOrder = 0
+    OnMouseWheelDown = InstructionScrollBoxMouseWheelDown
+    OnMouseWheelUp = InstructionScrollBoxMouseWheelUp
+    object InstructionLabel: TLabel
+      Left = 3
+      Top = 3
+      Width = 562
+      Height = 46
+      Caption = 
+        'InstructionLabel                                                ' +
+        '                                                                '
+      WordWrap = True
+    end
   end
 end

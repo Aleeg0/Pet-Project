@@ -23,7 +23,7 @@ Type
         Edit1: TEdit;
         BitBtn1: TBitBtn;
         Procedure FormCreate(Sender: TObject; Var Gamer: TGamer;
-          Var Bank: TLetterBank);
+            Var Bank: TLetterBank);
         Procedure Edit1Change(Sender: TObject);
         Procedure Edit1KeyPress(Sender: TObject; Var Key: Char);
         Procedure BitBtn1Click(Sender: TObject);
@@ -53,25 +53,31 @@ Var
     Letter, TempLetter: Char;
     I, CountMissing: Integer;
 Begin
-    TempLetters := CurGamer.GetUserLetters();
-    CurGamer.SetLastGamersWord(Edit1.Text);
-    If CurGamer.IsWordCreatable() Then
+    If (5 <= Bank.GetCountOfLetter()) Then
     Begin
-        CurGamer.Use50For50Button();
-        CurGamer.DeleteLetters();
-        CurGamer.SetLastGamersWord('');
-        CurGamer.SetLetters(Self.Bank.GiveLetters(COUNT_LETTERS -
-          CurGamer.GetCountLetters()));
+        TempLetters := CurGamer.GetUserLetters();
+        CurGamer.SetLastGamersWord(Edit1.Text);
+        If CurGamer.IsWordCreatable() Then
+        Begin
+            CurGamer.Use50For50Button();
+            CurGamer.DeleteLetters();
+            CurGamer.SetLastGamersWord('');
+            CurGamer.SetLetters(Self.Bank.GiveLetters(COUNT_LETTERS -
+                CurGamer.GetCountLetters(), CurGamer.GetCountVowel()));
+        End
+        Else
+            MessageBox(FiftyForFiftyForm.Handle,
+                'ќй-еееей, кажетс€ одной из букв которые вы хотите помен€ть нет в вашем наборе',
+                'ќшибочка', MB_ICONEXCLAMATION);
     End
-    Else
+    else
         MessageBox(FiftyForFiftyForm.Handle,
-          'ќй-еееей, кажетс€ одной из букв которые вы хотите помен€ть нет в вашем наборе',
-          'ќшибочка', MB_ICONEXCLAMATION);
-
+                'ќй-еееей, кажетс€ в Ѕанке букв закончилиьс буквы :(',
+                'ќшибочка', MB_ICONEXCLAMATION);
 End;
 
 Function CheckKeyInLeng(Var GOOD_KEYS: Array Of Char; Key: Char;
-  Language: Integer): Boolean;
+    Language: Integer): Boolean;
 Var
     ColNum, I: Integer;
     Res: Boolean;
@@ -106,6 +112,7 @@ Begin
         SetLength(GOOD_KEYS, 33);
         For I := $0430 To $044F Do
             GOOD_KEYS[I - $0430] := Chr(I);
+        GOOD_KEYS[32] := 'Є';
     End;
 
     If (Key <> #0) Then
@@ -136,7 +143,7 @@ Begin
 End;
 
 Procedure TFiftyForFiftyForm.FormCreate(Sender: TObject; Var Gamer: TGamer;
-  Var Bank: TLetterBank);
+    Var Bank: TLetterBank);
 Var
     I, CountLetters: Integer;
     TempLetters: TLetters;

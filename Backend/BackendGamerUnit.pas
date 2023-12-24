@@ -2,7 +2,12 @@ Unit BackendGamerUnit;
 
 Interface
 
-Uses System.Generics.Collections;
+Uses System.Generics.Collections, BackendStartUnit;
+
+Const
+    VOWEL_LETTERS_EN: Set Of Char = ['a', 'e', 'i', 'o', 'u'];
+    VOWEL_LETTERS_RUS: Array Of Char = ['а', 'о', 'у', 'ы', 'э', 'я', 'ю', 'ё',
+        'и', 'е'];
 
 Type
     TLetters = TDictionary<Char, Integer>;
@@ -15,10 +20,12 @@ Type
         UserLetters: TLetters;
         LastWord: String;
         GamerPoints: Integer;
+        Language : TLanguage;
     Public
         Constructor Create();
         Procedure SetLastGamersWord(LastGamersWord: String);
         Procedure SetLetters(Letters: TLetters);
+        Procedure SetLanguage(Language : TLanguage);
         Procedure ChangeLetter(ChosenLetter, NewLetter: Char);
         Procedure DeleteLetters();
         Procedure AddPoints();
@@ -35,6 +42,10 @@ Type
         Function GetLastWord(): String;
         Function GetPoints(): Integer;
         Function GetUserLetters(): TLetters;
+         // для того, чтобы рандом был лучше
+        // можно считать сколько гласных или согласных в данный момент
+        // так как гласных меньше я решил сделать гласные
+        Function GetCountVowel() : Integer;
         // проверяет можно ли составить последнее переданное слов из букв,
         // которые были в БАНКЕ БУКВ пользователя
         Function IsWordCreatable(): Boolean;
@@ -104,6 +115,30 @@ Begin
         Inc(Count, I);
     GetCountLetters := Count;
 End;
+
+function TGamer.GetCountVowel: Integer;
+Var
+    isVowel : Boolean;
+    Letter : Char;
+    I, VowelLettersCount : Integer;
+begin
+    VowelLettersCount := 0;
+    for Letter in UserLetters.Keys do
+    Begin
+        if Language = TLanguage.EN then
+        Begin
+            if Letter in VOWEL_LETTERS_EN then
+                Inc(VowelLettersCount,UserLetters[Letter]);
+        End
+        else
+        Begin
+            for I := 0 to 9 do
+                if Letter = VOWEL_LETTERS_RUS[I] then
+                    Inc(VowelLettersCount,UserLetters[Letter]);
+        End;
+    End;
+    GetCountVowel := VowelLettersCount;
+end;
 
 Function TGamer.GetExitStatus: Boolean;
 Begin
@@ -188,6 +223,11 @@ Begin
     End;
     IsWordCreatable := Answer;
 End;
+
+procedure TGamer.SetLanguage(Language: TLanguage);
+begin
+    Self.Language := Language;
+end;
 
 Procedure TGamer.SetLastGamersWord(LastGamersWord: String);
 Begin

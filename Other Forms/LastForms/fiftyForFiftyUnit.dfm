@@ -4,8 +4,8 @@ object FiftyForFiftyForm: TFiftyForFiftyForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = '50 '#1085#1072' 50'
-  ClientHeight = 104
-  ClientWidth = 306
+  ClientHeight = 103
+  ClientWidth = 302
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
