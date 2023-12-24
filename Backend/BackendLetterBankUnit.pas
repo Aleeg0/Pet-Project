@@ -33,60 +33,171 @@ Begin
 End;
 
 Function TLetterBank.GiveLetters(CountLetters: Integer): TLetters;
+Const
+    VOWEL_LETTERS_EN: Set Of Char = ['a', 'e', 'i', 'o', 'u'];
+    VOWEL_LETTERS_RUS: Array Of Char = ['а', 'о', 'у', 'ы', 'э', 'я', 'ю', 'ё',
+        'и', 'е'];
 Var
+    // сами буквы
     Letters: TLetters;
+    // для рандома
     RandomIndex: Integer;
-    Counter: Integer;
-    Letter: Char;
     RandomLetter: Char;
-    I: Integer;
+    VowelCount: Integer;
+    // для циклов
+    Letter: Char; // для английских букв
+    I,J: Integer;
+    // для проверок
     DoubleLetterCounter: Integer;
+    Counter: Integer;
     LetterFound: Boolean;
+    IsVowel: Boolean;
+    // для русского языка
 Begin
     Letters := Nil;
     Letters := TDictionary<Char, Integer>.Create();
     DoubleLetterCounter := 0;
-    For I := 1 To CountLetters Do
+    VowelCount := 0;
+    If Language = TLanguage.En Then
     Begin
-        RandomLetter := #0;
-        If Alphabet.Count > 0 Then
+        For I := 1 To CountLetters Do
         Begin
-            LetterFound := False;
-            Repeat
-                Randomize;
-                RandomIndex := Random(Alphabet.Count);
-                Counter := 0;
-                // тут происходит генерация буквы
-                For Letter In Alphabet.Keys Do
-                Begin
-                    If (RandomIndex = Counter) Then
+            RandomLetter := #0;
+            If Alphabet.Count > 0 Then
+            Begin
+                LetterFound := False;
+                Repeat
+                    Randomize;
+                    RandomIndex := Random(Alphabet.Count);
+                    Counter := 0;
+                    // тут происходит генерация буквы
+                    For Letter In Alphabet.Keys Do
                     Begin
-                        RandomLetter := Letter;
-                        Break;
+                        If (RandomIndex = Counter) Then
+                        Begin
+                            RandomLetter := Letter;
+                            Break;
+                        End;
+                        Inc(Counter);
                     End;
-                    Inc(Counter);
-                End;
-                // А тут мы смотрим чтобы буквы не повторялись больше 2 раз
-                // если больше половины букв выпали 2 раза
-                //
-                If Alphabet.ContainsKey(RandomLetter) Then
-                Begin
-                    If (Letters.ContainsKey(RandomLetter)) And (Letters[RandomLetter] = 1) And
-                        (DoubleLetterCounter < 2) Then
+                    // А тут мы смотрим чтобы буквы не повторялись больше 2 раз
+                    // если больше половины букв выпали 2 раза
+                    //
+                    If Alphabet.ContainsKey(RandomLetter) Then
                     Begin
-                        Inc(DoubleLetterCounter);
-                        LetterFound := True;
-                    End
-                    Else if Not Letters.ContainsKey(RandomLetter) then
-                        LetterFound := True;
-                End;
-            Until LetterFound;
-            Alphabet[RandomLetter] := Alphabet[RandomLetter] - 1;
-            If Alphabet[RandomLetter] = 0 Then
-                Alphabet.Remove(RandomLetter);
-            If Not Letters.ContainsKey(RandomLetter) Then
-                Letters.Add(RandomLetter, 0);
-            Letters[RandomLetter] := Letters[RandomLetter] + 1;
+                        If (Language = TLanguage.EN) And
+                            (RandomLetter In VOWEL_LETTERS_EN) Then
+                        Begin
+                            If (Letters.ContainsKey(RandomLetter)) And
+                                (Letters[RandomLetter] = 1) And
+                                (DoubleLetterCounter < 2) Then
+                            Begin
+                                Inc(DoubleLetterCounter);
+                                LetterFound := True;
+                                Inc(VowelCount);
+                            End
+                            Else If Not Letters.ContainsKey(RandomLetter) Then
+                            Begin
+                                LetterFound := True;
+                                Inc(VowelCount);
+                            End;
+                        End
+                        Else If (VowelCount > (CountLetters Div 2 - 1)) Then
+                        Begin
+                            If (Letters.ContainsKey(RandomLetter)) And
+                                (Letters[RandomLetter] = 1) And
+                                (DoubleLetterCounter < 2) Then
+                            Begin
+                                Inc(DoubleLetterCounter);
+                                LetterFound := True;
+                            End
+                            Else If Not Letters.ContainsKey(RandomLetter) Then
+                                LetterFound := True;
+                        End;
+                    End;
+                Until LetterFound;
+                Alphabet[RandomLetter] := Alphabet[RandomLetter] - 1;
+                If Alphabet[RandomLetter] = 0 Then
+                    Alphabet.Remove(RandomLetter);
+                If Not Letters.ContainsKey(RandomLetter) Then
+                    Letters.Add(RandomLetter, 0);
+                Letters[RandomLetter] := Letters[RandomLetter] + 1;
+            End;
+        End;
+    End
+    Else
+    Begin
+        For I := 1 To CountLetters Do
+        Begin
+            RandomLetter := #0;
+            If Alphabet.Count > 0 Then
+            Begin
+                LetterFound := False;
+                Repeat
+                    Randomize;
+                    RandomIndex := Random(Alphabet.Count);
+                    Counter := 0;
+                    // тут происходит генерация буквы
+                    For Letter In Alphabet.Keys Do
+                    Begin
+                        If (RandomIndex = Counter) Then
+                        Begin
+                            RandomLetter := Letter;
+                            Break;
+                        End;
+                        Inc(Counter);
+                    End;
+                    // А тут мы смотрим чтобы буквы не повторялись больше 2 раз
+                    // если больше половины букв выпали 2 раза
+                    //
+                    If Alphabet.ContainsKey(RandomLetter) Then
+                    Begin
+                     IsVowel := False;
+                        For J := 0 To 9 Do
+                        Begin
+                            if RandomLetter = VOWEL_LETTERS_RUS[J] then
+                            Begin
+                                IsVowel := True;
+                                Break;
+                            End;
+                        End;
+                        If IsVowel Then
+                        Begin
+                            If (Letters.ContainsKey(RandomLetter)) And
+                                (Letters[RandomLetter] = 1) And
+                                (DoubleLetterCounter < 2) Then
+                            Begin
+                                Inc(DoubleLetterCounter);
+                                LetterFound := True;
+                                Inc(VowelCount);
+                            End
+                            Else If Not Letters.ContainsKey(RandomLetter) Then
+                            Begin
+                                LetterFound := True;
+                                Inc(VowelCount);
+                            End;
+                        End
+                        Else If (VowelCount >= (CountLetters Div 2 - 1)) Then
+                        Begin
+                            If (Letters.ContainsKey(RandomLetter)) And
+                                (Letters[RandomLetter] = 1) And
+                                (DoubleLetterCounter < 2) Then
+                            Begin
+                                Inc(DoubleLetterCounter);
+                                LetterFound := True;
+                            End
+                            Else If Not Letters.ContainsKey(RandomLetter) Then
+                                LetterFound := True;
+                        End;
+                    End;
+                Until LetterFound;
+                Alphabet[RandomLetter] := Alphabet[RandomLetter] - 1;
+                If Alphabet[RandomLetter] = 0 Then
+                    Alphabet.Remove(RandomLetter);
+                If Not Letters.ContainsKey(RandomLetter) Then
+                    Letters.Add(RandomLetter, 0);
+                Letters[RandomLetter] := Letters[RandomLetter] + 1;
+            End;
         End;
     End;
     GiveLetters := Letters;

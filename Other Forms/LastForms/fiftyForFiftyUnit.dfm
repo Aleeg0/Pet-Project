@@ -4,8 +4,8 @@ object FiftyForFiftyForm: TFiftyForFiftyForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = '50 '#1085#1072' 50'
-  ClientHeight = 101
-  ClientWidth = 281
+  ClientHeight = 104
+  ClientWidth = 306
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -28,7 +28,7 @@ object FiftyForFiftyForm: TFiftyForFiftyForm
     ParentFont = False
   end
   object Label2: TLabel
-    Left = 156
+    Left = 175
     Top = 8
     Width = 98
     Height = 20
@@ -54,7 +54,7 @@ object FiftyForFiftyForm: TFiftyForFiftyForm
     ParentFont = False
   end
   object Edit1: TEdit
-    Left = 156
+    Left = 181
     Top = 31
     Width = 117
     Height = 28
@@ -73,7 +73,7 @@ object FiftyForFiftyForm: TFiftyForFiftyForm
   object BitBtn1: TBitBtn
     Left = 8
     Top = 65
-    Width = 265
+    Width = 290
     Height = 25
     Caption = #1055#1086#1076#1090#1074#1077#1088#1076#1080#1090#1100' '#1079#1072#1084#1077#1085#1091
     Default = True

@@ -4,8 +4,8 @@ object FriendsHelpForm: TFriendsHelpForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #1055#1086#1084#1086#1097#1100' '#1076#1088#1091#1075#1072
-  ClientHeight = 395
-  ClientWidth = 573
+  ClientHeight = 397
+  ClientWidth = 534
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
