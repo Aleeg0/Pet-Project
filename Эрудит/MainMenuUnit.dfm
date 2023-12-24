@@ -4,8 +4,8 @@ object StartForm: TStartForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #1057#1090#1072#1088#1090#1086#1074#1086#1077' '#1084#1077#1085#1102
-  ClientHeight = 324
-  ClientWidth = 605
+  ClientHeight = 327
+  ClientWidth = 592
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

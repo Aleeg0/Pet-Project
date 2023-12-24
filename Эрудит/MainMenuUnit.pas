@@ -64,7 +64,7 @@ End;
 
 Procedure TStartForm.PlayButtonClick(Sender: TObject);
 Begin
-    // StartForm.Visible := False;
+    //StartForm.Visible := False;
     Application.CreateForm(TGameForm, GameForm);
     GameForm.ShowModal;
     GameForm.Destroy();

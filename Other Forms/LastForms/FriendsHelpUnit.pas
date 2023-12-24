@@ -244,6 +244,7 @@ Begin
         SetLength(GOOD_KEYS, 33);
         For I := $0430 To $044F Do
             GOOD_KEYS[I - $0430] := Chr(I);
+        GOOD_KEYS[32] := 'ё';
     End;
 
     If (Key <> #0) Then

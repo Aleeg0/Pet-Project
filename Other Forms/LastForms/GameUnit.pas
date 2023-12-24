@@ -116,7 +116,7 @@ Begin
             Begin
                 CurGamer.SetLetters
                     (LettersBank.GiveLetters(COUNT_LETTERS -
-                    CurGamer.GetCountLetters()));
+                    CurGamer.GetCountLetters(),CurGamer.GetCountVowel()));
             End;
         End
         Else
@@ -236,7 +236,8 @@ Begin
     For I := 1 To CountPlayers Do
     Begin
         Gamers[I - 1] := TGamer.Create();
-        Gamers[I - 1].SetLetters(LettersBank.GiveLetters(COUNT_LETTERS));
+        Gamers[I - 1].SetLanguage(Start.GetLanguage());
+        Gamers[I - 1].SetLetters(LettersBank.GiveLetters(COUNT_LETTERS,Gamers[I - 1].GetCountVowel()));
     End;
     // первый пошел
     CountOfRounds := 1;
