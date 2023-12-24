@@ -125,6 +125,7 @@
             <Form>FiftyForFiftyForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\Backend\BackendStartUnit.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

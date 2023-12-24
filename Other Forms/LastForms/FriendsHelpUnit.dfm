@@ -4,8 +4,8 @@ object FriendsHelpForm: TFriendsHelpForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #1055#1086#1084#1086#1097#1100' '#1076#1088#1091#1075#1072
-  ClientHeight = 326
-  ClientWidth = 523
+  ClientHeight = 395
+  ClientWidth = 573
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -544,11 +544,10 @@ object FriendsHelpForm: TFriendsHelpForm
     F800001FFFFFFFFFFF0000FFFFFFFFFFFFFE7FFFFFFFFFFFFFFFFFFFFFFFFFFF
     FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
   Position = poScreenCenter
-  OnCreate = FormCreate
   TextHeight = 15
   object Label1: TLabel
-    Left = 8
-    Top = 8
+    Left = 7
+    Top = 56
     Width = 163
     Height = 20
     Caption = #1054#1073#1097#1080#1081' '#1089#1087#1080#1089#1086#1082' '#1080#1075#1088#1086#1082#1086#1074
@@ -560,8 +559,8 @@ object FriendsHelpForm: TFriendsHelpForm
     ParentFont = False
   end
   object Label2: TLabel
-    Left = 8
-    Top = 199
+    Left = 7
+    Top = 247
     Width = 83
     Height = 20
     Caption = #1042#1072#1096#1072' '#1073#1091#1082#1074#1072':'
@@ -574,8 +573,8 @@ object FriendsHelpForm: TFriendsHelpForm
     WordWrap = True
   end
   object Label3: TLabel
-    Left = 191
-    Top = 199
+    Left = 190
+    Top = 247
     Width = 128
     Height = 20
     Caption = #1084#1077#1085#1103#1077#1090#1089#1103' '#1085#1072' '#1073#1091#1082#1074#1091
@@ -587,8 +586,8 @@ object FriendsHelpForm: TFriendsHelpForm
     ParentFont = False
   end
   object Label4: TLabel
-    Left = 415
-    Top = 199
+    Left = 414
+    Top = 247
     Width = 48
     Height = 20
     Caption = #1080#1075#1088#1086#1082#1072
@@ -600,8 +599,8 @@ object FriendsHelpForm: TFriendsHelpForm
     ParentFont = False
   end
   object Label5: TLabel
-    Left = 9
-    Top = 235
+    Left = 8
+    Top = 283
     Width = 77
     Height = 20
     Caption = #1042#1072#1096' '#1085#1072#1073#1086#1088
@@ -612,9 +611,23 @@ object FriendsHelpForm: TFriendsHelpForm
     Font.Style = []
     ParentFont = False
   end
+  object Label6: TLabel
+    Left = 8
+    Top = 21
+    Width = 345
+    Height = 21
+    AutoSize = False
+    Caption = #1059' '#1074#1072#1089' '#1077#1089#1090#1100' '#1074#1086#1079#1084#1086#1078#1085#1086#1089#1090#1100' '#1090#1086#1083#1100#1082#1086' '#1086#1076#1085#1086#1081' '#1079#1072#1084#1077#1085#1099'!'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
   object StringGrid1: TStringGrid
-    Left = 9
-    Top = 34
+    Left = 8
+    Top = 82
     Width = 504
     Height = 148
     ColCount = 3
@@ -630,8 +643,8 @@ object FriendsHelpForm: TFriendsHelpForm
     TabOrder = 0
   end
   object Edit1: TEdit
-    Left = 103
-    Top = 196
+    Left = 102
+    Top = 244
     Width = 82
     Height = 28
     Font.Charset = DEFAULT_CHARSET
@@ -644,10 +657,14 @@ object FriendsHelpForm: TFriendsHelpForm
     ShowHint = True
     TabOrder = 1
     TextHint = #1055#1080#1089#1072#1090#1100' '#1090#1091#1090
+    OnChange = Edit1Change
+    OnContextPopup = Edit1ContextPopup
+    OnKeyDown = Edit1KeyDown
+    OnKeyPress = Edit1KeyPress
   end
   object Edit2: TEdit
-    Left = 325
-    Top = 196
+    Left = 324
+    Top = 244
     Width = 84
     Height = 28
     Font.Charset = DEFAULT_CHARSET
@@ -660,10 +677,14 @@ object FriendsHelpForm: TFriendsHelpForm
     ShowHint = True
     TabOrder = 2
     TextHint = #1055#1080#1089#1072#1090#1100' '#1090#1091#1090
+    OnChange = Edit2Change
+    OnContextPopup = Edit2ContextPopup
+    OnKeyDown = Edit2KeyDown
+    OnKeyPress = Edit2KeyPress
   end
   object Edit3: TEdit
-    Left = 469
-    Top = 196
+    Left = 468
+    Top = 244
     Width = 44
     Height = 28
     Font.Charset = DEFAULT_CHARSET
@@ -676,10 +697,14 @@ object FriendsHelpForm: TFriendsHelpForm
     ShowHint = True
     TabOrder = 3
     TextHint = 'N'
+    OnChange = Edit3Change
+    OnContextPopup = Edit3ContextPopup
+    OnKeyDown = Edit3KeyDown
+    OnKeyPress = Edit3KeyPress
   end
   object StringGrid2: TStringGrid
-    Left = 9
-    Top = 261
+    Left = 8
+    Top = 309
     Width = 506
     Height = 54
     ColCount = 3
@@ -699,19 +724,21 @@ object FriendsHelpForm: TFriendsHelpForm
       24)
   end
   object BitBtn1: TBitBtn
-    Left = 282
-    Top = 230
+    Left = 281
+    Top = 278
     Width = 233
     Height = 25
     Caption = #1055#1086#1076#1090#1074#1077#1088#1076#1080#1090#1100' '#1086#1073#1084#1077#1085
+    Default = True
+    Enabled = False
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -15
     Font.Name = 'Segoe UI'
     Font.Style = []
-    Kind = bkOK
     NumGlyphs = 2
     ParentFont = False
     TabOrder = 5
+    OnClick = BitBtn1Click
   end
 end

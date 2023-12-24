@@ -5,7 +5,7 @@ object FiftyForFiftyForm: TFiftyForFiftyForm
   BorderStyle = bsSingle
   Caption = '50 '#1085#1072' 50'
   ClientHeight = 101
-  ClientWidth = 261
+  ClientWidth = 281
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -56,25 +56,31 @@ object FiftyForFiftyForm: TFiftyForFiftyForm
   object Edit1: TEdit
     Left = 156
     Top = 31
-    Width = 98
+    Width = 117
     Height = 28
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -15
     Font.Name = 'Segoe UI'
     Font.Style = []
+    MaxLength = 5
     ParentFont = False
     TabOrder = 0
     TextHint = '5 '#1073#1091#1082#1074
+    OnChange = Edit1Change
+    OnKeyPress = Edit1KeyPress
   end
   object BitBtn1: TBitBtn
     Left = 8
     Top = 65
-    Width = 245
+    Width = 265
     Height = 25
     Caption = #1055#1086#1076#1090#1074#1077#1088#1076#1080#1090#1100' '#1079#1072#1084#1077#1085#1091
-    Kind = bkOK
+    Default = True
+    Enabled = False
+    ModalResult = 2
     NumGlyphs = 2
     TabOrder = 1
+    OnClick = BitBtn1Click
   end
 end

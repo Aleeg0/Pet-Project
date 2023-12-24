@@ -1,25 +1,26 @@
-unit AboutTheDevelopersUnit;
+Unit AboutTheDevelopersUnit;
 
-interface
+Interface
 
-uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+Uses
+    Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+    System.Classes, Vcl.Graphics,
+    Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
 
-type
-  TDeveloperForm = class(TForm)
-    Memo1: TMemo;
-  private
-    { Private declarations }
-  public
-    { Public declarations }
-  end;
+Type
+    TDeveloperForm = Class(TForm)
+        Memo1: TMemo;
+    Private
+        { Private declarations }
+    Public
+        { Public declarations }
+    End;
 
-var
-  DeveloperForm: TDeveloperForm;
+Var
+    DeveloperForm: TDeveloperForm;
 
-implementation
+Implementation
 
 {$R *.dfm}
 
-end.
+End.

@@ -11,6 +11,7 @@ Type
     Private
         Status50For50Button: Boolean;
         StatusFriendsHelpButton: Boolean;
+        ExitStatus: Boolean;
         UserLetters: TLetters;
         LastWord: String;
         GamerPoints: Integer;
@@ -19,18 +20,26 @@ Type
         Procedure SetLastGamersWord(LastGamersWord: String);
         Procedure SetLetters(Letters: TLetters);
         Procedure ChangeLetter(ChosenLetter, NewLetter: Char);
+        Procedure DeleteLetters();
         Procedure AddPoints();
+        Procedure SubPoints();
+        Procedure SetExitStatus(ExitStatus: Boolean);
+        Procedure UseFrindsHelpButton();
+        Procedure Use50For50Button();
         // 0 - не было использована
         // 1 - была использована
-        Function WasFrindsHelpButtonStatus(): Boolean;
-        Function Was50For50ButtonStatus(): Boolean;
+        Function GetFrindsHelpButtonStatus(): Boolean;
+        Function Get50For50ButtonStatus(): Boolean;
+        Function GetExitStatus(): Boolean;
         Function GetCountLetters(): Integer;
         Function GetLastWord(): String;
-        Function GetPoints() : Integer;
+        Function GetPoints(): Integer;
         Function GetUserLetters(): TLetters;
         // провер€ет можно ли составить последнее переданное слов из букв,
         // которые были в ЅјЌ ≈ Ѕ” ¬ пользовател€
         Function IsWordCreatable(): Boolean;
+        // нужна дл€ 50 на 50 бонуса
+        Function IsContainsLetters(Letters: String): Boolean;
     End;
 
 Implementation
@@ -61,6 +70,28 @@ Begin
     UserLetters := TDictionary<Char, Integer>.Create();
     LastWord := '';
     GamerPoints := 0;
+    ExitStatus := False;
+    Status50For50Button := False;
+    StatusFriendsHelpButton := False;
+End;
+
+Procedure TGamer.DeleteLetters;
+Var
+    I: Integer;
+    Size: Integer;
+    TempLetter: Char;
+Begin
+    Size := Length(LastWord);
+    For I := 1 To Size Do
+    Begin
+        TempLetter := LastWord[I];
+        If UserLetters.ContainsKey(TempLetter) Then
+        Begin
+            UserLetters[TempLetter] := UserLetters[TempLetter] - 1;
+            If UserLetters[TempLetter] = 0 Then
+                UserLetters.Remove(TempLetter);
+        End;
+    End;
 End;
 
 Function TGamer.GetCountLetters: Integer;
@@ -74,19 +105,56 @@ Begin
     GetCountLetters := Count;
 End;
 
+Function TGamer.GetExitStatus: Boolean;
+Begin
+    GetExitStatus := ExitStatus;
+End;
+
 Function TGamer.GetLastWord(): String;
 Begin
     GetLastWord := LastWord;
 End;
 
-function TGamer.GetPoints: Integer;
-begin
+Function TGamer.GetPoints: Integer;
+Begin
     GetPoints := GamerPoints;
-end;
+End;
 
 Function TGamer.GetUserLetters: TLetters;
 Begin
     GetUserLetters := UserLetters;
+End;
+
+Function TGamer.IsContainsLetters(Letters: String): Boolean;
+Var
+    Counter, Size, I, J: Integer;
+    TempLetter: Char;
+    Answer, WrongLetter: Boolean;
+Begin
+    Answer := True;
+    Size := Length(Letters);
+    For TempLetter In UserLetters.Keys Do
+    Begin
+        Counter := 0;
+        // если буква есть в словаре, но ее больше чем дано
+        For I := 1 To Size Do
+        Begin
+            // если буквы нет в словаре
+            If Not UserLetters.ContainsKey(Letters[I]) Then
+            Begin
+                Answer := False;
+                Break;
+            End;
+            If Letters[I] = TempLetter Then
+                Inc(Counter);
+        End;
+        If UserLetters[TempLetter] < Counter Then
+        Begin
+            Answer := False;
+            Break;
+        End;
+    End;
+    IsContainsLetters := Answer;
 End;
 
 Function TGamer.IsWordCreatable(): Boolean;
@@ -97,27 +165,26 @@ Var
 Begin
     Answer := True;
     Size := Length(LastWord);
-    // считаем сколько раз буква встретилась в слове.
-    // ј потом смотри, если число по€вилось больше раз
-    // чем может быть (второе значение в словаре), то присваеваем False
-    //
-    For I := 1 To Size Do
+    For TempLetter In UserLetters.Keys Do
     Begin
-        WrongLetter := True;
         Counter := 0;
-        TempLetter := LastWord[I];
-        If UserLetters.ContainsKey(TempLetter) Then
+        // если буква есть в словаре, но ее больше чем дано
+        For I := 1 To Size Do
         Begin
-            UserLetters[TempLetter] := UserLetters[TempLetter] - 1;
-            If UserLetters[TempLetter] = 0 Then
-                UserLetters.Remove(TempLetter);
-        End
-        Else
-            WrongLetter := False;
-        If Answer And Not WrongLetter Then
+            // если буквы нет в словаре
+            If Not UserLetters.ContainsKey(LastWord[I]) Then
+            Begin
+                Answer := False;
+                Break;
+            End;
+            If LastWord[I] = TempLetter Then
+                Inc(Counter);
+        End;
+        If UserLetters[TempLetter] < Counter Then
+        Begin
             Answer := False;
-        If Not WrongLetter Then
-            Dec(GamerPoints);
+            Break;
+        End;
     End;
     IsWordCreatable := Answer;
 End;
@@ -133,20 +200,41 @@ Var
 Begin
     For Letter In Letters.Keys Do
     Begin
-        if Not UserLetters.ContainsKey(Letter) then
+        If Not UserLetters.ContainsKey(Letter) Then
             UserLetters.Add(Letter, 0);
-        UserLetters[Letter] := Letters[Letter];
+        UserLetters[Letter] := UserLetters[Letter] + Letters[Letter];
     End;
 End;
 
-Function TGamer.Was50For50ButtonStatus(): Boolean;
+Procedure TGamer.SubPoints;
 Begin
-    Was50For50ButtonStatus := Status50For50Button;
+    Dec(GamerPoints, Length(LastWord));
+    LastWord := '';
 End;
 
-Function TGamer.WasFrindsHelpButtonStatus(): Boolean;
+Function TGamer.Get50For50ButtonStatus(): Boolean;
 Begin
-    WasFrindsHelpButtonStatus := StatusFriendsHelpButton;
+    Get50For50ButtonStatus := Self.Status50For50Button;
+End;
+
+Procedure TGamer.Use50For50Button();
+Begin
+    Status50For50Button := True;
+End;
+
+Procedure TGamer.SetExitStatus(ExitStatus: Boolean);
+Begin
+    Self.ExitStatus := ExitStatus;
+End;
+
+Procedure TGamer.UseFrindsHelpButton;
+Begin
+    StatusFriendsHelpButton := True;
+End;
+
+Function TGamer.GetFrindsHelpButtonStatus(): Boolean;
+Begin
+    GetFrindsHelpButtonStatus := Self.StatusFriendsHelpButton;
 End;
 
 End.
