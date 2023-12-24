@@ -2,21 +2,22 @@ Unit BackendGameDictionaryUnit;
 
 Interface
 
-Uses System.Generics.Collections;
+Uses System.Generics.Collections, BackendStartUnit;
 
 Type
     TPoints = Integer;
     TWordDic = TDictionary<String, TPoints>;
+
     TGameDictionary = Class
     Private
         GameDic: TWordDic;
         SourceFileName: String;
         SourceFile: TextFile;
     Public
-        Constructor Create(SourceFileName: String);
+        Constructor Create(SourceFileName: String; Language: TLanguage);
         Procedure LoadDictionaryFromFile();
-        Procedure AddNewWord(NewWord : String);
-        Function isExist(UserWord: String) : Boolean;
+        Procedure AddNewWord(NewWord: String);
+        Function IsExist(UserWord: String): Boolean;
         // use Destroy() by default
         function lox();
         function asd();
@@ -26,45 +27,48 @@ Implementation
 
 { TGameDictionary }
 
-procedure TGameDictionary.AddNewWord(NewWord: String);
-begin
-    Append(SourceFile);
-    GameDic.Add(NewWord,Length(NewWord));
-    try
-        Writeln(SourceFile,NewWord);            
-    finally
-        CloseFile(SourceFile);
-    end;
-end;
-
-Constructor TGameDictionary.Create(SourceFileName: String);
+Procedure TGameDictionary.AddNewWord(NewWord: String);
 Begin
-    Self.SourceFileName := SourceFileName;
-    AssignFile(SourceFile, SourceFileName);
+    Append(SourceFile);
+    GameDic.Add(NewWord, Length(NewWord));
+    Try
+        Writeln(SourceFile, NewWord);
+    Finally
+        CloseFile(SourceFile);
+    End;
 End;
 
-function TGameDictionary.isExist(UserWord: String): Boolean;
-begin
-    if GameDic.ContainsKey(UserWord) then
-       IsExist := True
-    else
+Constructor TGameDictionary.Create(SourceFileName: String; Language: TLanguage);
+Begin
+    Self.SourceFileName := SourceFileName;
+    If Language = TLanguage.EN Then
+        AssignFile(SourceFile, SourceFileName)
+    Else
+        AssignFile(SourceFile, SourceFileName, CP_UTF8);
+End;
+
+Function TGameDictionary.IsExist(UserWord: String): Boolean;
+Begin
+    If GameDic.ContainsKey(UserWord) Then
+        IsExist := True
+    Else
         IsExist := False;
-end;
+End;
 
 Procedure TGameDictionary.LoadDictionaryFromFile();
 Var
-    Word : String;
-    Count : Integer;
+    Word: String;
+    Count: Integer;
 Begin
     Try
         ReSet(SourceFile);
-        Readln(SourceFile, Count);
-        GameDic := TDictionary<String,Integer>.Create();
+        GameDic := TDictionary<String, Integer>.Create();
         While Not EOF(SourceFile) Do
         Begin
             Readln(SourceFile, Word);
-            GameDic.Add(Word,length(Word));
-        End; 
+            If Not GameDic.ContainsKey(Word) Then
+                GameDic.Add(Word, Length(Word));
+        End;
     Finally
         CloseFile(SourceFile);
         // in future

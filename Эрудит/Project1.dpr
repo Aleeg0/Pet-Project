@@ -1,30 +1,28 @@
 Program Project1;
 
-Uses
-    Vcl.Forms,
-    MainMenuUnit In 'MainMenuUnit.pas' {StartForm} ,
-    InstructionUnit In 'InstructionUnit.pas' {InstructionForm} ,
-    AboutTheDevelopersUnit In 'AboutTheDevelopersUnit.pas' {DeveloperForm} ,
-    BackendGameDictionaryUnit In '..\Backend\BackendGameDictionaryUnit.pas',
-    BackendGamerUnit In '..\Backend\BackendGamerUnit.pas',
-    BackendLetterBankUnit In '..\Backend\BackendLetterBankUnit.pas',
-    GameUnit In '..\Other Forms\LastForms\GameUnit.pas' {GameForm} ,
-    FriendsHelpUnit
-        In '..\Other Forms\LastForms\FriendsHelpUnit.pas' {FriendsHelpForm} ,
-    FiftyForFiftyUnit
-        In '..\Other Forms\LastForms\fiftyForFiftyUnit.pas' {FiftyForFiftyForm};
+uses
+  Vcl.Forms,
+  MainMenuUnit in 'MainMenuUnit.pas' {StartForm},
+  InstructionUnit in 'InstructionUnit.pas' {InstructionForm},
+  AboutTheDevelopersUnit in 'AboutTheDevelopersUnit.pas' {DeveloperForm},
+  BackendGameDictionaryUnit in '..\Backend\BackendGameDictionaryUnit.pas',
+  BackendGamerUnit in '..\Backend\BackendGamerUnit.pas',
+  BackendLetterBankUnit in '..\Backend\BackendLetterBankUnit.pas',
+  GameUnit in '..\Other Forms\LastForms\GameUnit.pas' {GameForm},
+  FriendsHelpUnit in '..\Other Forms\LastForms\FriendsHelpUnit.pas' {FriendsHelpForm},
+  fiftyForFiftyUnit in '..\Other Forms\LastForms\fiftyForFiftyUnit.pas' {FiftyForFiftyForm},
+  BackendStartUnit in '..\Backend\BackendStartUnit.pas';
 
 {$R *.res}
 
 Begin
     Application.Initialize;
     Application.MainFormOnTaskbar := True;
-    //Application.CreateForm(TGameForm, GameForm);
     Application.CreateForm(TStartForm, StartForm);
-    Application.CreateForm(TInstructionForm, InstructionForm);
-    Application.CreateForm(TDeveloperForm, DeveloperForm);
-    Application.CreateForm(TFriendsHelpForm, FriendsHelpForm);
-    Application.CreateForm(TFiftyForFiftyForm, FiftyForFiftyForm);
-    Application.Run;
+  Application.CreateForm(TInstructionForm, InstructionForm);
+  Application.CreateForm(TDeveloperForm, DeveloperForm);
+  Application.CreateForm(TFriendsHelpForm, FriendsHelpForm);
+  Application.CreateForm(TFiftyForFiftyForm, FiftyForFiftyForm);
+  Application.Run;
 
 End.

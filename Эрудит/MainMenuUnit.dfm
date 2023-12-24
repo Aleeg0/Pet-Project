@@ -4,8 +4,8 @@ object StartForm: TStartForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #1057#1090#1072#1088#1090#1086#1074#1086#1077' '#1084#1077#1085#1102
-  ClientHeight = 349
-  ClientWidth = 628
+  ClientHeight = 336
+  ClientWidth = 610
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,6 +14,7 @@ object StartForm: TStartForm
   Font.Style = []
   Menu = TabsMainMenu
   Position = poScreenCenter
+  OnCreate = FormCreate
   TextHeight = 23
   object TitleLabel: TLabel
     Left = 240
@@ -50,6 +51,8 @@ object StartForm: TStartForm
     Height = 31
     Style = csDropDownList
     TabOrder = 0
+    OnChange = LanguageComboBoxChange
+    OnClick = PlayersComboBoxClick
     Items.Strings = (
       #1040#1085#1075#1083#1080#1081#1089#1082#1080#1081
       #1056#1091#1089#1089#1082#1080#1081)
@@ -61,6 +64,8 @@ object StartForm: TStartForm
     Height = 31
     Style = csDropDownList
     TabOrder = 1
+    OnChange = PlayersComboBoxChange
+    OnClick = PlayersComboBoxClick
     Items.Strings = (
       '2'
       '3'
@@ -73,6 +78,7 @@ object StartForm: TStartForm
     Width = 114
     Height = 41
     Caption = #1048#1043#1056#1040#1058#1068
+    Enabled = False
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -17
