@@ -100,7 +100,9 @@ Begin
     For I := 1 To Length(FriendsHelpForm.StringGrid2.Cells[1, 1]) Do
         If (FriendsHelpForm.StringGrid2.Cells[1, 1][I]
             = FriendsHelpForm.Edit1.Text) Then
+        Begin
             Res := True;
+        End;
 
     CheckConditionYourLetter := Res;
 End;
@@ -206,19 +208,51 @@ Begin
         Edit.Clear;
 End;
 
+Function CheckKeyInLeng(Var GOOD_KEYS: Array Of Char; Key: Char;
+    Language: Integer): Boolean;
+Var
+    ColNum, I: Integer;
+    Res: Boolean;
+Begin
+    Res := False;
+    If Language = 0 Then
+        ColNum := 26
+    Else
+        ColNum := 33;
+    For I := 0 To ColNum - 1 Do
+        If (GOOD_KEYS[I] = Key) Then
+            Res := True;
+
+    CheckKeyInLeng := Res;
+End;
+
 Procedure EditKeyPress(Var Key: Char; Var Edit: TEdit);
 Var
-    GOOD_KEYS: Set Of Char;
+    GOOD_KEYS: Array Of Char;
+    Chardfsdfs: Char;
+    I: Integer;
+    CheckKey: Boolean;
 Begin
     If Language = 0 Then
-        GOOD_KEYS := ['a' .. 'z']
+    Begin
+        SetLength(GOOD_KEYS, 26);
+        For I := 0 To 25 Do
+            GOOD_KEYS[I] := Chr(97 + I);
+    End
     Else
-        GOOD_KEYS := ['а' .. 'я'];
-    If Not(Key In GOOD_KEYS) Then
+    Begin
+        SetLength(GOOD_KEYS, 33);
+        For I := $0430 To $044F Do
+            GOOD_KEYS[I - $0430] := Chr(I);
+    End;
+
+    If (Key <> #0) Then
+        CheckKey := CheckKeyInLeng(GOOD_KEYS, Key, Language);
+
+    If Not CheckKey Then
         Key := #0;
 
-    If (Key In GOOD_KEYS) And (Edit.SelText <> '') And
-        (Length(Edit.Text) >= 1) Then
+    If CheckKey And (Edit.SelText <> '') And (Length(Edit.Text) >= 1) Then
         Edit.Clear;
 
     If Length(Edit.Text) >= 1 Then
@@ -297,9 +331,8 @@ Begin
         Key := #0;
 End;
 
-
 Procedure TFriendsHelpForm.FormCreate(Sender: TObject; Var Gamers: TGamers;
-            Var CurPlayer: Integer);
+    Var CurPlayer: Integer);
 Begin
     Self.CurPlayer := CurPlayer;
     Self.Gamers := Gamers;
