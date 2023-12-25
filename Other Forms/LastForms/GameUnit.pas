@@ -8,7 +8,7 @@ Uses
     Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
     FriendsHelpUnit, FiftyForFiftyUnit,
     BackendGameDictionaryUnit, BackendLetterBankUnit, BackendGamerUnit,
-    BackendStartUnit;
+    BackendStartUnit, System.ImageList, GamerPoints, QuitUnit, Vcl.ImgList;
 
 Const
     COUNT_LETTERS: Integer = 10;
@@ -28,12 +28,18 @@ Type
         NextPlayer: TButton;
         Label6: TLabel;
         PointsLabel: TLabel;
+        ShowListButton: TBitBtn;
+        ImageList1: TImageList;
         Procedure FriendsHelpButtonClick(Sender: TObject);
         Procedure FiftyForFiftyButtonClick(Sender: TObject);
         Procedure FormCreate(Sender: TObject);
         Procedure AcceptWordButtonClick(Sender: TObject);
         Procedure NextPlayerClick(Sender: TObject);
         Procedure FormClose(Sender: TObject; Var Action: TCloseAction);
+        Procedure WordEditKeyDown(Sender: TObject; Var Key: Word;
+            Shift: TShiftState);
+        Procedure ShowListButtonClick(Sender: TObject);
+        Procedure FormCloseQuery(Sender: TObject; Var CanClose: Boolean);
     Private
         ChosenLanguage: TLanguage;
         CurPlayer: Integer;
@@ -43,6 +49,7 @@ Type
         GameDictionary: TGameDictionary;
         CountOfRounds: Integer;
         CountEndGamers: Integer;
+        IsEndOfGame: Boolean;
     Public
 
     End;
@@ -116,7 +123,7 @@ Begin
             Begin
                 CurGamer.SetLetters
                     (LettersBank.GiveLetters(COUNT_LETTERS -
-                    CurGamer.GetCountLetters(),CurGamer.GetCountVowel()));
+                    CurGamer.GetCountLetters(), CurGamer.GetCountVowel()));
             End;
         End
         Else
@@ -135,6 +142,7 @@ Begin
     FriendsHelpButton.Enabled := False;
     WordEdit.Enabled := False;
     NextPlayer.Enabled := True;
+    NextPlayer.SetFocus;
 End;
 
 Procedure TGameForm.FriendsHelpButtonClick(Sender: TObject);
@@ -207,6 +215,19 @@ Begin
     Gamers := Nil;
 End;
 
+Procedure TGameForm.FormCloseQuery(Sender: TObject; Var CanClose: Boolean);
+Begin
+    If Not IsEndOfGame Then
+    Begin
+        Application.CreateForm(TQuitForm, QuitForm);
+        QuitForm.ShowModal;
+        CanClose := QuitForm.GetStatus();
+        QuitForm.Destroy();
+    End
+    else
+        CanClose := True;
+End;
+
 Procedure TGameForm.FormCreate(Sender: TObject);
 Var
     I, CountLetters: Integer;
@@ -237,8 +258,11 @@ Begin
     Begin
         Gamers[I - 1] := TGamer.Create();
         Gamers[I - 1].SetLanguage(Start.GetLanguage());
-        Gamers[I - 1].SetLetters(LettersBank.GiveLetters(COUNT_LETTERS,Gamers[I - 1].GetCountVowel()));
+        Gamers[I - 1].SetLetters(LettersBank.GiveLetters(COUNT_LETTERS,
+            Gamers[I - 1].GetCountVowel()));
     End;
+    // переменная для конца игры
+    IsEndOfGame := False;
     // первый пошел
     CountOfRounds := 1;
     CurPlayer := 1;
@@ -264,12 +288,10 @@ Var
     WinnerIndex: Integer;
     WinnerPoints: Integer;
     CurGamer: TGamer;
-    IsEndOfGame: Boolean;
 Begin
     AcceptWordButton.Enabled := True;
     Label3.Caption := '';
     WordEdit.Text := '';
-    // тип конец игры
     IsEndOfGame := True;
     For I := 1 To CountPlayers Do
         If Not Gamers[I - 1].GetExitStatus() Then
@@ -286,6 +308,10 @@ Begin
                 WinnerIndex := I;
             End;
         End;
+        Label1.Caption := 'Игра закончилась!';
+        PointsLabel.Caption := 'Ваши Очки: ';
+        LettersLabel.Caption := '';
+        Label6.Caption := '';
         Label3.Caption := 'Победил игрок №' + IntToStr(WinnerIndex) + ',набрав '
             + IntToStr(WinnerPoints) + ' очков';
         AcceptWordButton.Enabled := False;
@@ -325,6 +351,26 @@ Begin
         NextPlayer.Enabled := False;
         WordEdit.Enabled := True;
     End;
+End;
+
+Procedure TGameForm.ShowListButtonClick(Sender: TObject);
+Begin
+    Application.CreateForm(TPointsListForm, PointsListForm);
+    PointsListForm.FormCreate(Gamers);
+    PointsListForm.ShowModal;
+    PointsListForm.Destroy();
+End;
+
+Procedure TGameForm.WordEditKeyDown(Sender: TObject; Var Key: Word;
+    Shift: TShiftState);
+Begin
+    If (Key = VK_RETURN) OR ((Key = VK_DOWN) Or (Key = VK_Right) And
+        (WordEdit.SelStart = Length(WordEdit.Text)) And
+        (WordEdit.SelLength = 0)) Then
+        ActiveControl := AcceptWordButton;
+    If ((Key = VK_UP) Or (Key = VK_LEFT)) And (WordEdit.SelStart = 0) And
+        (WordEdit.SelLength = 0) Then
+        ActiveControl := ShowListButton;
 End;
 
 End.
