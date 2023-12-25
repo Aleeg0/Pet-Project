@@ -11,7 +11,6 @@ Const
 
 Type
     TLetters = TDictionary<Char, Integer>;
-
     TGamer = Class
     Private
         Status50For50Button: Boolean;
@@ -52,6 +51,7 @@ Type
         // нужна для 50 на 50 бонуса
         Function IsContainsLetters(Letters: String): Boolean;
     End;
+    TGamers = Array Of TGamer;
 
 Implementation
 

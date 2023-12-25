@@ -129,6 +129,18 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Backend\BackendStartUnit.pas"/>
+        <DCCReference Include="..\Other Forms\LastForms\GamerPoints.pas">
+            <Form>PointsListForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Other Forms\LastForms\ExitUnit.pas">
+            <Form>ExitForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Other Forms\LastForms\QuitUnit.pas">
+            <Form>QuitForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

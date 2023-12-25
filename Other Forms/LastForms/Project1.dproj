@@ -98,16 +98,20 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="Unit1.pas">
+        <DCCReference Include="fiftyForFiftyUnit.pas">
+            <Form>FiftyForFiftyForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="FriendsHelpUnit.pas">
+            <Form>FriendsHelpForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GameUnit.pas">
+            <Form>GameForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GamerPoints.pas">
             <Form>Form1</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="Unit2.pas">
-            <Form>Form2</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="Unit3.pas">
-            <Form>Form3</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Base">

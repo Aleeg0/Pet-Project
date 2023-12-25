@@ -622,7 +622,7 @@ object FriendsHelpForm: TFriendsHelpForm
     Font.Color = clWindowText
     Font.Height = -16
     Font.Name = 'Segoe UI'
-    Font.Style = []
+    Font.Style = [fsBold]
     ParentFont = False
   end
   object StringGrid1: TStringGrid

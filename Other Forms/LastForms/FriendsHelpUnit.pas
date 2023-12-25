@@ -22,8 +22,6 @@ Uses
     BackendStartUnit;
 
 Type
-    TGamers = Array Of TGamer;
-
     TFriendsHelpForm = Class(TForm)
         StringGrid1: TStringGrid;
         Label1: TLabel;
@@ -56,8 +54,7 @@ Type
         Procedure Edit2Change(Sender: TObject);
         Procedure Edit1Change(Sender: TObject);
         Procedure BitBtn1Click(Sender: TObject);
-        Procedure FormCreate(Sender: TObject; Var Gamers: TGamers;
-            Var CurPlayer: Integer);
+        Procedure FormCreate(Sender: TObject; Var Gamers: TGamers; Var CurPlayer: Integer);
     Private
         ChosenLanguage: TLanguage;
         CurPlayer: Integer;
@@ -189,7 +186,12 @@ Begin
     Replacement(Edit1, Edit2, Edit3, Gamers, CurPlayer);
     Gamers[CurPlayer - 1].UseFrindsHelpButton();
     RenderingGrids(StringGrid2, StringGrid1, Sender, Gamers, CurPlayer);
-
+    Edit1.Enabled := False;
+    Edit1.Text := '';
+    Edit2.Enabled := False;
+    Edit2.Text := '';
+    Edit3.Enabled := False;
+    Edit3.Text := '';
     BitBtn1.Enabled := False;
 End;
 
@@ -332,9 +334,9 @@ Begin
         Key := #0;
 End;
 
-Procedure TFriendsHelpForm.FormCreate(Sender: TObject; Var Gamers: TGamers;
-    Var CurPlayer: Integer);
+Procedure TFriendsHelpForm.FormCreate(Sender: TObject; Var Gamers: TGamers; Var CurPlayer: Integer);
 Begin
+    SwapCount := 1;
     Self.CurPlayer := CurPlayer;
     Self.Gamers := Gamers;
     Self.ChosenLanguage := Start.GetLanguage;
